@@ -9,7 +9,7 @@ class Document {
     this.path,
   );
 
-  static const defaultPath = '~/.todo-elijah';
+  static const defaultPath = '.todo-elijah';
 
   final List<Todo> todos;
   final String path;
