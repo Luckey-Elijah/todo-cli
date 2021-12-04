@@ -1,29 +1,29 @@
 import 'package:args/command_runner.dart';
-import 'package:dcli/dcli.dart';
 import 'package:io/io.dart';
+import 'package:mason/mason.dart';
 import 'package:todo/todo.dart';
 
 class CompleteCommand extends Command<int> {
+  CompleteCommand(this.logger);
+
+  final Logger logger;
+
   @override
   int run() {
     final doc = readDocument(Document.defaultPath);
-    printTodos(doc);
+    printTodos(doc, logger);
 
     if (doc.isFullyComplete) {
-      print('No todos left!');
+      logger.info('No todos remaining!');
       return ExitCode.success.code;
     }
 
-    final input = ask(
-      'index:',
-      required: true,
-      validator: const _AskPositiveIntWithMaxValue(),
-    );
+    final input = logger.prompt('index: ');
     final selectedIndex = int.parse(input);
     doc.todos[selectedIndex] = doc.todos[selectedIndex].copyWith(
       isComplete: true,
     );
-    printTodos(doc);
+    printTodos(doc, logger);
     saveDocument(doc);
     return ExitCode.success.code;
   }
@@ -33,17 +33,4 @@ class CompleteCommand extends Command<int> {
 
   @override
   String get name => 'complete';
-}
-
-class _AskPositiveIntWithMaxValue extends AskValidator {
-  const _AskPositiveIntWithMaxValue() : super();
-
-  @override
-  String validate(String line) {
-    final trimmedInput = line.trim();
-    if (!RegExp(r'^(?:-?(?:0|[0-9][0-9]*))$').hasMatch(trimmedInput)) {
-      throw AskValidatorException(red('Invalid positive integer.'));
-    }
-    return trimmedInput;
-  }
 }

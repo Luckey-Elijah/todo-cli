@@ -1,10 +1,15 @@
 import 'package:args/command_runner.dart';
 import 'package:io/io.dart';
+import 'package:mason/mason.dart';
 
 class RemoveCommand extends Command<int> {
+  final Logger logger;
+
+  RemoveCommand(this.logger);
+
   @override
   int run() {
-    print(name);
+    logger.info(name);
     return ExitCode.success.code;
   }
 

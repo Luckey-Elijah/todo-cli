@@ -2,20 +2,24 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:io/io.dart';
+import 'package:mason/mason.dart';
 import 'package:todo/todo.dart';
 
 class ShowCommand extends Command<int> {
+  ShowCommand(this.logger);
+  final Logger logger;
+
   @override
   int run() {
     try {
       final doc = readDocument(Document.defaultPath);
-      printTodos(doc);
+      printTodos(doc, logger);
       return ExitCode.success.code;
     } on FileSystemException {
-      print('Cannot find todos document.');
+      logger.err('Cannot find todos document.');
       return ExitCode.data.code;
     } catch (e, s) {
-      print('$e\n$s');
+      logger.err('$e\n$s');
       return ExitCode.usage.code;
     }
   }
@@ -27,26 +31,26 @@ class ShowCommand extends Command<int> {
   String get name => 'show';
 }
 
-void printTodos(Document doc) {
+void printTodos(Document doc, Logger logger) {
   if (doc.todos.isNotEmpty) {
     final length = doc.todos.length;
     for (var i = 0; i < length; i++) {
-      final padding = _getPadding(i);
-      _printTodo(doc.todos[i], i, padding);
+      final padding = getPadding(i, length);
+      printOneTodo(doc.todos[i], i, padding, logger);
     }
   } else {
-    print('No todos to show.');
+    logger.info('No todos to show.');
   }
 }
 
-void _printTodo(Todo todo, int index, String padding) {
+void printOneTodo(Todo todo, int index, String padding, Logger logger) {
   final prefix = '- ($padding$index) [' + (todo.isComplete ? 'X' : ' ') + '] ';
-  print(prefix + todo.message);
+  logger.info(prefix + todo.message);
 }
 
-String _getPadding(int scale) {
-  if (scale < 10) {
-    return '';
+String getPadding(int index, int max) {
+  if (index < 10 && max > 10) {
+    return ' ';
   }
-  return ' ';
+  return '';
 }
