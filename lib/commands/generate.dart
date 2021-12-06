@@ -22,11 +22,9 @@ class GenerateCommand extends Command<int> {
   int run() {
     try {
       String path;
-      if (argResults == null) {
-        path = Document.defaultPath;
-      } else {
-        path = argResults!['path'] as String? ?? Document.defaultPath;
-      }
+      path = argResults == null
+          ? Document.defaultPath
+          : argResults!['path'] as String? ?? Document.defaultPath;
       return _generateDoc(path);
     } catch (e, s) {
       logger.err('$e\n$s');

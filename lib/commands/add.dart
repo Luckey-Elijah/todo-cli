@@ -17,6 +17,7 @@ class AddCommand extends Command<int> {
       final todos = doc.todos..add(Todo(false, todoMessage));
       final updated = doc.copyWith(todos: todos);
       File(doc.path).writeAsStringSync(updated.toJson());
+      logger.success('Added todo: $todoMessage');
       return ExitCode.success.code;
     } on FileSystemException catch (e) {
       if (e.message != 'Cannot open file') rethrow;
