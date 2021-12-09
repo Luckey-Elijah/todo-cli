@@ -222,10 +222,14 @@ void main() {
           isFalse,
         );
         expect(
-          const Document([Todo(isComplete: false, message: 'message')],
-                  'example-path') ==
-              const Document([Todo(isComplete: false, message: 'message')],
-                  'example-path'),
+          const Document(
+                [Todo(isComplete: false, message: 'message')],
+                'example-path',
+              ) ==
+              const Document(
+                [Todo(isComplete: false, message: 'message')],
+                'example-path',
+              ),
           isTrue,
         );
         expect(
@@ -255,11 +259,13 @@ void main() {
 
         expect(
           const Document(
-                  [Todo(isComplete: false, message: 'message')], 'example-path')
-              .hashCode,
+            [Todo(isComplete: false, message: 'message')],
+            'example-path',
+          ).hashCode,
           const Document(
-                  [Todo(isComplete: false, message: 'message')], 'example-path')
-              .hashCode,
+            [Todo(isComplete: false, message: 'message')],
+            'example-path',
+          ).hashCode,
         );
         expect(
           const Document([], 'example-path').hashCode,
