@@ -1,13 +1,31 @@
 import 'dart:convert';
 
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 import 'package:todo/todo.dart';
 
+@immutable
 class Document {
   const Document(
     this.todos,
     this.path,
   );
+
+  factory Document.fromJson(String source) =>
+      Document.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  factory Document.empty(String path) => Document(const [], path);
+
+  factory Document.fromMap(Map<String, dynamic> map) {
+    return Document(
+      List<Todo>.from(
+        (map['todos'] as List).map<Todo>(
+          (dynamic x) => Todo.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      map['path'] as String,
+    );
+  }
 
   static const defaultPath = '.todo-elijah';
 
@@ -17,25 +35,13 @@ class Document {
   bool get isFullyComplete => !todos.any((todo) => !todo.isComplete);
 
   Map<String, dynamic> toMap() {
-    return {
+    return <String, dynamic>{
       'todos': todos.map((x) => x.toMap()).toList(),
       'path': path,
     };
   }
 
-  factory Document.empty(String path) => Document(const [], path);
-
-  factory Document.fromMap(Map<String, dynamic> map) {
-    return Document(
-      List<Todo>.from(map['todos']?.map((x) => Todo.fromMap(x))),
-      map['path'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Document.fromJson(String source) =>
-      Document.fromMap(json.decode(source));
 
   Document copyWith({
     List<Todo>? todos,

@@ -7,8 +7,6 @@ import 'package:mason/mason.dart';
 import 'package:todo/models/models.dart';
 
 class GenerateCommand extends Command<int> {
-  final Logger logger;
-
   GenerateCommand(this.logger) {
     argParser.addOption(
       'path',
@@ -17,6 +15,8 @@ class GenerateCommand extends Command<int> {
       defaultsTo: Document.defaultPath,
     );
   }
+
+  final Logger logger;
 
   @override
   int run() {
@@ -43,10 +43,9 @@ class GenerateCommand extends Command<int> {
     final jsonString = json.encode(
       Document.empty(path).toMap(),
     );
-    final file = File(path);
-    file.createSync();
-    file.writeAsStringSync(jsonString);
-
+    File(path)
+      ..createSync()
+      ..writeAsStringSync(jsonString);
     done('Created $path.');
     return ExitCode.success.code;
   }

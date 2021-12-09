@@ -13,7 +13,7 @@ class AddCommand extends Command<int> {
   int run() {
     try {
       final doc = readDocument(Document.defaultPath);
-      var todoMessage = logger.prompt('todo: ');
+      final todoMessage = logger.prompt('todo: ');
       final todos = doc.todos..add(Todo(false, todoMessage));
       final updated = doc.copyWith(todos: todos);
       File(doc.path).writeAsStringSync(updated.toJson());

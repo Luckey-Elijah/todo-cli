@@ -18,7 +18,7 @@ void printTodos(Document doc, Logger logger) {
 /// Print a single todo object.
 @visibleForTesting
 void printOneTodo(Todo todo, int index, String padding, Logger logger) {
-  final prefix = '- ($padding$index) [' + (todo.isComplete ? 'X' : ' ') + '] ';
+  final prefix = '- ($padding$index) [${todo.isComplete ? 'X' : ' '}] ';
   logger.info(prefix + todo.message);
 }
 

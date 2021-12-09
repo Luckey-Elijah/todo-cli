@@ -1,5 +1,7 @@
 # Simple TODO CLI
 
+[![style: very good analysis][vg_svg]][vg]
+
 A simple command line todo build with Dart.
 
 ## Usage
@@ -53,3 +55,6 @@ $ dart bin/todo.dart complete
 - (0) [X] My first todo!
 No todos left!
 ```
+
+[vg_svg]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
+[vg]: https://pub.dev/packages/very_good_analysis
