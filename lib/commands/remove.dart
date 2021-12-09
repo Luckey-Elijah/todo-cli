@@ -3,9 +3,9 @@ import 'package:io/io.dart';
 import 'package:mason/mason.dart';
 
 class RemoveCommand extends Command<int> {
-  final Logger logger;
-
   RemoveCommand(this.logger);
+
+  final Logger logger;
 
   @override
   int run() {

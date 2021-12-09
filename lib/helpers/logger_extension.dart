@@ -16,9 +16,7 @@ extension LoggerX on Logger {
   /// ```
   InputRule yynPrompt([String message = '']) {
     return prompt(
-      yellow.wrap(
-        '$message ' + styleBold.wrap('(Yyn)')! + ' ',
-      ),
+      yellow.wrap('$message ${styleBold.wrap('(Yyn)')!} '),
     ).asInputRule;
   }
 }
@@ -30,7 +28,7 @@ enum InputRule {
 }
 
 extension StringX on String {
-  /// Converts [this] to one of below [InputRule]s. Defaults to
+  /// Converts this to one of below [InputRule]s. Defaults to
   /// [InputRule.no].
   /// ```dart
   /// {

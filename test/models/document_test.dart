@@ -32,10 +32,13 @@ void main() {
     });
 
     test('toMap', () {
-      const document = Document([
-        Todo(true, 'message'),
-        Todo(false, 'message'),
-      ], 'example-path');
+      const document = Document(
+        [
+          Todo(true, 'message'),
+          Todo(false, 'message'),
+        ],
+        'example-path',
+      );
 
       final actual = document.toMap();
       final matcher = equals(const {
@@ -66,24 +69,32 @@ void main() {
 
       final actual = Document.fromMap(map);
       final matcher = equals(
-        const Document([
-          Todo(true, 'message'),
-          Todo(false, 'message'),
-        ], 'example-path'),
+        const Document(
+          [
+            Todo(true, 'message'),
+            Todo(false, 'message'),
+          ],
+          'example-path',
+        ),
       );
       expect(actual, matcher);
     });
 
     test('toJson', () {
-      const document = Document([
-        Todo(true, 'message'),
-        Todo(false, 'message'),
-      ], 'example-path');
+      const document = Document(
+        [
+          Todo(true, 'message'),
+          Todo(false, 'message'),
+        ],
+        'example-path',
+      );
 
       final actual = document.toJson();
-      final matcher = equals('{"todos":[{"isComplete":true,'
-          '"message":"message"},{"isComplete":false,"message":'
-          '"message"}],"path":"example-path"}');
+      final matcher = equals(
+        '{"todos":[{"isComplete":true,'
+        '"message":"message"},{"isComplete":false,"message":'
+        '"message"}],"path":"example-path"}',
+      );
 
       expect(actual, matcher);
     });
@@ -94,51 +105,77 @@ void main() {
           '"message"}],"path":"example-path"}';
 
       final actual = Document.fromJson(json);
-      final matcher = equals(const Document([
-        Todo(true, 'message'),
-        Todo(false, 'message'),
-      ], 'example-path'));
+      final matcher = equals(
+        const Document(
+          [
+            Todo(true, 'message'),
+            Todo(false, 'message'),
+          ],
+          'example-path',
+        ),
+      );
 
       expect(actual, matcher);
     });
 
     group('copyWith', () {
       test('todos', () {
-        const document = Document([
-          Todo(true, 'message'),
-          Todo(false, 'message'),
-        ], 'example-path');
+        const document = Document(
+          [
+            Todo(true, 'message'),
+            Todo(false, 'message'),
+          ],
+          'example-path',
+        );
 
-        final actual = document.copyWith(todos: const [
-          Todo(false, 'my todo replacer'),
-        ]);
-        final matcher = equals(const Document([
-          Todo(false, 'my todo replacer'),
-        ], 'example-path'));
+        final actual = document.copyWith(
+          todos: const [
+            Todo(false, 'my todo replacer'),
+          ],
+        );
+        final matcher = equals(
+          const Document(
+            [
+              Todo(false, 'my todo replacer'),
+            ],
+            'example-path',
+          ),
+        );
 
         expect(actual, matcher);
       });
 
       test('path', () {
-        const document = Document([
-          Todo(true, 'message'),
-          Todo(false, 'message'),
-        ], 'example-path');
+        const document = Document(
+          [
+            Todo(true, 'message'),
+            Todo(false, 'message'),
+          ],
+          'example-path',
+        );
 
         final actual = document.copyWith(path: 'replacement');
-        final matcher = equals(const Document([
-          Todo(true, 'message'),
-          Todo(false, 'message'),
-        ], 'replacement'));
+        final matcher = equals(
+          const Document(
+            [
+              Todo(true, 'message'),
+              Todo(false, 'message'),
+            ],
+            'replacement',
+          ),
+        );
 
         expect(actual, matcher);
       });
 
       test('toString', () {
-        const document = Document([
-          Todo(true, 'message'),
-          Todo(false, 'message'),
-        ], 'example-path');
+        const document = Document(
+          [
+            Todo(true, 'message'),
+            Todo(false, 'message'),
+          ],
+          'example-path',
+        );
 
         final actual = document.toString();
         final matcher = equals(
@@ -151,34 +188,47 @@ void main() {
 
       test('operator ==', () {
         expect(
-          Document([
-                Todo(false, 'message'),
-                Todo(true, 'message'),
-              ], 'example-path') ==
-              Document([
-                Todo(false, 'message'),
-                Todo(true, 'message'),
-              ], 'example-path'),
+          const Document(
+                [
+                  Todo(false, 'message'),
+                  Todo(true, 'message'),
+                ],
+                'example-path',
+              ) ==
+              const Document(
+                [
+                  Todo(false, 'message'),
+                  Todo(true, 'message'),
+                ],
+                'example-path',
+              ),
           isTrue,
         );
         expect(
-          Document([
-                Todo(true, 'message'),
-                Todo(false, 'message'),
-              ], 'example-path') ==
-              Document([
-                Todo(false, 'message'),
-                Todo(true, 'message'),
-              ], 'example-path'),
+          const Document(
+                [
+                  Todo(true, 'message'),
+                  Todo(false, 'message'),
+                ],
+                'example-path',
+              ) ==
+              const Document(
+                [
+                  Todo(false, 'message'),
+                  Todo(true, 'message'),
+                ],
+                'example-path',
+              ),
           isFalse,
         );
         expect(
-          Document([Todo(false, 'message')], 'example-path') ==
-              Document([Todo(false, 'message')], 'example-path'),
+          const Document([Todo(false, 'message')], 'example-path') ==
+              const Document([Todo(false, 'message')], 'example-path'),
           isTrue,
         );
         expect(
-          Document([], 'example-path') == Document([], 'example-path'),
+          const Document([], 'example-path') ==
+              const Document([], 'example-path'),
           isTrue,
         );
       });

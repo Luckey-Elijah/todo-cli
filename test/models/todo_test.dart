@@ -55,12 +55,15 @@ void main() {
     });
 
     test('operator ==', () {
-      expect(Todo(false, 'example') == Todo(false, 'example'), isTrue);
-      expect(Todo(true, 'sample') == Todo(true, 'sample'), isTrue);
+      expect(
+        const Todo(false, 'example') == const Todo(false, 'example'),
+        isTrue,
+      );
+      expect(const Todo(true, 'sample') == const Todo(true, 'sample'), isTrue);
       expect(const Todo(false, 'ex') == const Todo(false, 'ex'), isTrue);
       expect(const Todo(true, 'sample') == const Todo(true, 'sample'), isTrue);
-      expect(Todo(true, 'sample') == const Todo(true, 'sample'), isTrue);
-      expect(const Todo(true, 'sample') == Todo(true, 'sample'), isTrue);
+      expect(const Todo(true, 'sample') == const Todo(true, 'sample'), isTrue);
+      expect(const Todo(true, 'sample') == const Todo(true, 'sample'), isTrue);
     });
 
     test('hashCode', () {
@@ -71,12 +74,12 @@ void main() {
 
       expect(
         const Todo(true, 'sample').hashCode,
-        equals(Todo(true, 'sample').hashCode),
+        equals(const Todo(true, 'sample').hashCode),
       );
 
       expect(
-        Todo(true, 'sample').hashCode,
-        equals(Todo(true, 'sample').hashCode),
+        const Todo(true, 'sample').hashCode,
+        equals(const Todo(true, 'sample').hashCode),
       );
     });
   });
