@@ -11,15 +11,15 @@ void main() {
 
     test('isFullyComplete', () {
       const fullyCompleteTodos = <Todo>[
-        Todo(true, 'message'),
-        Todo(true, 'message'),
-        Todo(true, 'message'),
+        Todo(isComplete: true, message: 'message'),
+        Todo(isComplete: true, message: 'message'),
+        Todo(isComplete: true, message: 'message'),
       ];
 
       const incompleteTodos = <Todo>[
-        Todo(true, 'message'),
-        Todo(true, 'message'),
-        Todo(false, 'message'),
+        Todo(isComplete: true, message: 'message'),
+        Todo(isComplete: true, message: 'message'),
+        Todo(isComplete: false, message: 'message'),
       ];
 
       const completeDocument = Document(fullyCompleteTodos, 'path');
@@ -34,8 +34,8 @@ void main() {
     test('toMap', () {
       const document = Document(
         [
-          Todo(true, 'message'),
-          Todo(false, 'message'),
+          Todo(isComplete: true, message: 'message'),
+          Todo(isComplete: false, message: 'message'),
         ],
         'example-path',
       );
@@ -71,8 +71,8 @@ void main() {
       final matcher = equals(
         const Document(
           [
-            Todo(true, 'message'),
-            Todo(false, 'message'),
+            Todo(isComplete: true, message: 'message'),
+            Todo(isComplete: false, message: 'message'),
           ],
           'example-path',
         ),
@@ -83,8 +83,8 @@ void main() {
     test('toJson', () {
       const document = Document(
         [
-          Todo(true, 'message'),
-          Todo(false, 'message'),
+          Todo(isComplete: true, message: 'message'),
+          Todo(isComplete: false, message: 'message'),
         ],
         'example-path',
       );
@@ -108,8 +108,8 @@ void main() {
       final matcher = equals(
         const Document(
           [
-            Todo(true, 'message'),
-            Todo(false, 'message'),
+            Todo(isComplete: true, message: 'message'),
+            Todo(isComplete: false, message: 'message'),
           ],
           'example-path',
         ),
@@ -122,21 +122,21 @@ void main() {
       test('todos', () {
         const document = Document(
           [
-            Todo(true, 'message'),
-            Todo(false, 'message'),
+            Todo(isComplete: true, message: 'message'),
+            Todo(isComplete: false, message: 'message'),
           ],
           'example-path',
         );
 
         final actual = document.copyWith(
           todos: const [
-            Todo(false, 'my todo replacer'),
+            Todo(isComplete: false, message: 'my todo replacer'),
           ],
         );
         final matcher = equals(
           const Document(
             [
-              Todo(false, 'my todo replacer'),
+              Todo(isComplete: false, message: 'my todo replacer'),
             ],
             'example-path',
           ),
@@ -148,8 +148,8 @@ void main() {
       test('path', () {
         const document = Document(
           [
-            Todo(true, 'message'),
-            Todo(false, 'message'),
+            Todo(isComplete: true, message: 'message'),
+            Todo(isComplete: false, message: 'message'),
           ],
           'example-path',
         );
@@ -158,8 +158,8 @@ void main() {
         final matcher = equals(
           const Document(
             [
-              Todo(true, 'message'),
-              Todo(false, 'message'),
+              Todo(isComplete: true, message: 'message'),
+              Todo(isComplete: false, message: 'message'),
             ],
             'replacement',
           ),
@@ -171,8 +171,8 @@ void main() {
       test('toString', () {
         const document = Document(
           [
-            Todo(true, 'message'),
-            Todo(false, 'message'),
+            Todo(isComplete: true, message: 'message'),
+            Todo(isComplete: false, message: 'message'),
           ],
           'example-path',
         );
@@ -190,15 +190,15 @@ void main() {
         expect(
           const Document(
                 [
-                  Todo(false, 'message'),
-                  Todo(true, 'message'),
+                  Todo(isComplete: false, message: 'message'),
+                  Todo(isComplete: true, message: 'message'),
                 ],
                 'example-path',
               ) ==
               const Document(
                 [
-                  Todo(false, 'message'),
-                  Todo(true, 'message'),
+                  Todo(isComplete: false, message: 'message'),
+                  Todo(isComplete: true, message: 'message'),
                 ],
                 'example-path',
               ),
@@ -207,23 +207,25 @@ void main() {
         expect(
           const Document(
                 [
-                  Todo(true, 'message'),
-                  Todo(false, 'message'),
+                  Todo(isComplete: true, message: 'message'),
+                  Todo(isComplete: false, message: 'message'),
                 ],
                 'example-path',
               ) ==
               const Document(
                 [
-                  Todo(false, 'message'),
-                  Todo(true, 'message'),
+                  Todo(isComplete: false, message: 'message'),
+                  Todo(isComplete: true, message: 'message'),
                 ],
                 'example-path',
               ),
           isFalse,
         );
         expect(
-          const Document([Todo(false, 'message')], 'example-path') ==
-              const Document([Todo(false, 'message')], 'example-path'),
+          const Document([Todo(isComplete: false, message: 'message')],
+                  'example-path') ==
+              const Document([Todo(isComplete: false, message: 'message')],
+                  'example-path'),
           isTrue,
         );
         expect(
@@ -236,18 +238,28 @@ void main() {
       test('hashCode', () {
         expect(
           const Document(
-            [Todo(false, 'message'), Todo(true, 'message')],
+            [
+              Todo(isComplete: false, message: 'message'),
+              Todo(isComplete: true, message: 'message')
+            ],
             'example-path',
           ).hashCode,
           const Document(
-            [Todo(false, 'message'), Todo(true, 'message')],
+            [
+              Todo(isComplete: false, message: 'message'),
+              Todo(isComplete: true, message: 'message')
+            ],
             'example-path',
           ).hashCode,
         );
 
         expect(
-          const Document([Todo(false, 'message')], 'example-path').hashCode,
-          const Document([Todo(false, 'message')], 'example-path').hashCode,
+          const Document(
+                  [Todo(isComplete: false, message: 'message')], 'example-path')
+              .hashCode,
+          const Document(
+                  [Todo(isComplete: false, message: 'message')], 'example-path')
+              .hashCode,
         );
         expect(
           const Document([], 'example-path').hashCode,
