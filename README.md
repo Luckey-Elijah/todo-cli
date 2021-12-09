@@ -8,7 +8,7 @@ A simple command line todo build with Dart.
 
 ### `--help`
 
-```sh
+```command
 $ dart bin/todo.dart -h
 your cli todo manager
 
