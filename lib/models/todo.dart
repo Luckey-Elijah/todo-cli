@@ -4,17 +4,15 @@ import 'package:meta/meta.dart';
 
 @immutable
 class Todo {
-  const Todo(
-    // TODO: avoid_positional_boolean_parameters
-    // ignore: avoid_positional_boolean_parameters
-    this.isComplete,
-    this.message,
-  );
+  const Todo({
+    required this.isComplete,
+    required this.message,
+  });
 
   factory Todo.fromMap(Map<String, dynamic> map) {
     return Todo(
-      map['isComplete'] as bool,
-      map['message'] as String,
+      isComplete: map['isComplete'] as bool,
+      message: map['message'] as String,
     );
   }
 
@@ -38,8 +36,8 @@ class Todo {
     String? message,
   }) {
     return Todo(
-      isComplete ?? this.isComplete,
-      message ?? this.message,
+      isComplete: isComplete ?? this.isComplete,
+      message: message ?? this.message,
     );
   }
 

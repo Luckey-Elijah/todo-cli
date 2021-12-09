@@ -14,7 +14,8 @@ class AddCommand extends Command<int> {
     try {
       final doc = readDocument(Document.defaultPath);
       final todoMessage = logger.prompt('todo: ');
-      final todos = doc.todos..add(Todo(false, todoMessage));
+      final todos = doc.todos
+        ..add(Todo(isComplete: false, message: todoMessage));
       final updated = doc.copyWith(todos: todos);
       File(doc.path).writeAsStringSync(updated.toJson());
       logger.success('Added todo: $todoMessage');
